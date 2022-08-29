@@ -12,7 +12,7 @@ export class GitHubUtil {
    */
   async addPublicSshKeyToUserAccount(authToken: string, title: string, key: string) {
     const gitHubApiSshURL: string = GitHubUtil.GITHUB_API_ENTRIPOINT_URL + 'user/keys';
-    const authHeader = { headers: { 'Authorization': 'token ' + authToken, 'Content-Type': 'application/json' } };
+    const authHeader = { headers: { 'Authorization': 'token ' + authToken, 'Content-Type': 'application/vnd.github+json' } };
 
     const data = {
       title: `${title}`,

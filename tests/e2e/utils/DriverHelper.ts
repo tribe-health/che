@@ -388,6 +388,16 @@ export class DriverHelper {
         throw new error.TimeoutError(`Exceeded maximum gettin of the '${cssAttribute}' css attribute attempts, from the '${elementLocator}' element`);
     }
 
+    public async getHiddenAttributeValue(elementLocator: By,
+        attribute: string) {
+
+        Logger.trace(`DriverHelper.getHiddenAttributeValue ${elementLocator}`);
+
+        const attributeValue: string = await this.waitAndGetElementAttribute(elementLocator, attribute);
+
+        return attributeValue;
+    }
+
     public async waitAttributeValue(elementLocator: By,
         attribute: string,
         expectedValue: string,
