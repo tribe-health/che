@@ -67,16 +67,19 @@
           await topMenu.selectOption('View', 'Find Command...');
          //  // workaround - reopen 'Find Command' container - https://github.com/eclipse/che/issues/19793
           await topMenu.selectOption('View', 'Find Command...');
-          await quickOpenContainer.typeAndSelectSuggestion('SSH', 'SSH: Generate Key...');
+          await quickOpenContainer.typeAndSelectSuggestion('SSH generate', 'SSH: Generate Key...');
           await ide.waitNotificationAndClickOnButton('Key pair successfully generated, do you want to view the public key', 'View');
           await editor.waitEditorOpened('Untitled-0');
           await editor.waitText('Untitled-0', 'ssh-rsa');
       });
 
       test('Add a SSH key to GitHub side and clone by ssh link', async () => {
+          await gitHubUtils.deletePublicSshKeyByName(TestConstants.TS_GITHUB_TEST_REPO_ACCESS_TOKEN, workspaceName);
+
+          await driverHelper.getDriver().sleep(10000);
+
           const publicSshKey = await editor.getEditorHiddenText('Untitled-0');
           console.log(publicSshKey);
-          await gitHubUtils.getPublicSshKeys(TestConstants.TS_GITHUB_TEST_REPO_ACCESS_TOKEN);
           await gitHubUtils.addPublicSshKeyToUserAccount(TestConstants.TS_GITHUB_TEST_REPO_ACCESS_TOKEN, workspaceName, publicSshKey);
           await cloneTestRepo();
           await driverHelper.wait(TimeoutConstants.TS_IMPORT_PROJECT_DEFAULT_POLLING);

@@ -259,7 +259,6 @@ export class Editor {
         const editorBodyLocator: By = By.xpath(`//div[contains(@data-uri, \'${tabTitle}')]//div[contains(@class,\'view-lines\')]`);
         const editorText: string = await this.driverHelper.getHiddenAttributeValue(editorBodyLocator, 'textContent');
 
-        console.log(editorText);
         return editorText;
     }
 
